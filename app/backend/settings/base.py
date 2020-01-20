@@ -49,7 +49,7 @@ THIRD_PARTY_APPS = [
 ]
 
 BACKEND_APPS = [
-
+    'backend.apps.tps',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + BACKEND_APPS
