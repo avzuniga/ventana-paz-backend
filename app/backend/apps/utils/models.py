@@ -1,14 +1,14 @@
 from django.db import models
 
 from django.db import models
-from backend.apps.utils.managers import MahouModelManager
+from backend.apps.utils.managers import VentanaModelManager
 
 
 class ModelBase(models.Model):
     archived = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    objects = MahouModelManager()
+    objects = VentanaModelManager()
 
     class Meta:
         abstract = True
