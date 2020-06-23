@@ -1,84 +1,81 @@
 from django.db import models
 from backend.apps.utils.models import ModelBase
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User, Group,Permission
 
+class Perfil(ModelBase):
+    contraseña = models.CharField(max_length=15)
+    nombre = models.CharField(max_length=60)
+    correo = models.EmailField()
+    edad = models.PositiveIntegerField()
+    tienda = models.ForeignKey(
+        Tienda,
+        on_delete=models.CASCADE
+    )
+    cuenta = models.ForeignKey(User, on_delete=models.CASCADE,  editable=False)
+    def clean(self):
+        if self.pk is None and self.contraseña is None:
+            raise ValidationError({'contraseña':'Debes ingresar una contraseña para los nuevos usuarios'})
+    #sobre escribimos el evento de save para que cuando se cree un nuevo 
+    #ProfesionalSalud se cree el usuario de django correspondiente. 
+    def save(self, *args, **kwargs):
+        #si el pk es nulo es un objeto nuevo y debemos crear el usuario 
+        # y los permisos respectivos de acuerdo a su perfil
+        u = None 
+        if self.pk is None:    
+            u = User.objects.create_user(self.correo, None, self.contraseña)
+            self.cuenta = u
+            self.contraseña = "" #no queremos guardar la contraseña como texto plano. 
+        #de lo contrario solo actualizamos la informacion en el usuario existente.
+        else:  
+            u = self.cuenta
+            u.username = self.correo
+            u.first_name = self.nombre
+                    
+        #deberiamos cambiar la contraseña? 
+        if(self.contraseña is not None and len(self.contraseña)>5): 
+            u.set_password(self.contraseña)  
+            self.contraseña = ""
+        
+        u.save()
+        super(Perfil, self).save(*args, **kwargs)
 
-class InventoryItem(ModelBase):
-    title = models.CharField(max_length=60)
-    price = models.FloatField()
-    timestamp = models.DateTimeField()
 
     def __str__(self):
-        return self.title
+        return self.nombre
 
     class Meta:
-        verbose_name = 'Inventory item'
-        verbose_name_plural = 'Inventory items'
+        verbose_name = 'Perfil'
+        verbose_name_plural = 'Perfiles'
 
 
-class OrderItem(ModelBase):
-    quantity = models.FloatField()
-    inventory_item = models.ForeignKey(InventoryItem, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.id)
-
-    class Meta:
-        verbose_name = 'Order item'
-        verbose_name_plural = 'Order items'
-
-
-class OrderItemHistory(ModelBase):
-    amount = models.PositiveIntegerField()
-    state = models.CharField(max_length=45)
-    notes = models.TextField()
-    timestamp = models.DateTimeField()
-    order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.id)
-
-    class Meta:
-        verbose_name = 'Order item'
-        verbose_name_plural = 'Order items'
-
-
-class Address(ModelBase):
-    name = models.CharField(max_length=120)
-    add1 = models.CharField(max_length=120)
-    add2 = models.CharField(max_length=120)
-    city = models.CharField(max_length=45)
-    state = models.CharField(max_length=45)
-    zip = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Address'
-        verbose_name_plural = 'Addresses'
-
-
-class Invoice(ModelBase):
-    creation_date = models.DateTimeField()
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+class Tienda(ModelBase):
+    nombre = models.CharField(max_length=45)
+    indicativo = models.PositiveIntegerField()
+    whatsapp = models.PositiveIntegerField()
+    ubicacion = models.CharField()
+    elementos = models.ManyToManyField(Elemento, blank=True)
 
     def __str__(self):
         return str(self.id)
 
     class Meta:
-        verbose_name = 'Invoice'
-        verbose_name_plural = 'Invoices'
+        verbose_name = 'Tienda'
+        verbose_name_plural = 'Tiendas'
 
 
-class InvoiceHistory(ModelBase):
-    state_desc = models.CharField(max_length=45)
-    notes = models.TextField()
-    timestamp = models.DateTimeField()
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+class Elemento(ModelBase):
+    titulo = models.CharField(max_length=45)
+    descripcion = models.TextField()
+    precio = models.FloatField()
+    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
 
     class Meta:
-        verbose_name = 'Invoice history'
-        verbose_name_plural = 'Invoice histories'
+        verbose_name = 'Elemento'
+        verbose_name_plural = 'Elementos'
+
+
+
