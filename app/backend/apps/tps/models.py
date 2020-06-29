@@ -1,7 +1,8 @@
 from django.db import models
 from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User, Group,Permission
+from django.contrib.auth.models import User, Group, Permission
+
 
 class Perfil(ModelBase):
     contraseña = models.CharField(max_length=15)
@@ -9,37 +10,38 @@ class Perfil(ModelBase):
     correo = models.EmailField()
     edad = models.PositiveIntegerField()
     tienda = models.ForeignKey(
-        Tienda,
+        'tps.Tienda',
         on_delete=models.CASCADE
     )
-    cuenta = models.ForeignKey(User, on_delete=models.CASCADE,  editable=False)
+    cuenta = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+
     def clean(self):
         if self.pk is None and self.contraseña is None:
-            raise ValidationError({'contraseña':'Debes ingresar una contraseña para los nuevos usuarios'})
-    #sobre escribimos el evento de save para que cuando se cree un nuevo 
-    #ProfesionalSalud se cree el usuario de django correspondiente. 
+            raise ValidationError({'contraseña': 'Debes ingresar una contraseña para los nuevos usuarios'})
+
+    # sobre escribimos el evento de save para que cuando se cree un nuevo
+    # ProfesionalSalud se cree el usuario de django correspondiente.
     def save(self, *args, **kwargs):
-        #si el pk es nulo es un objeto nuevo y debemos crear el usuario 
+        # si el pk es nulo es un objeto nuevo y debemos crear el usuario
         # y los permisos respectivos de acuerdo a su perfil
-        u = None 
-        if self.pk is None:    
+        u = None
+        if self.pk is None:
             u = User.objects.create_user(self.correo, None, self.contraseña)
             self.cuenta = u
-            self.contraseña = "" #no queremos guardar la contraseña como texto plano. 
-        #de lo contrario solo actualizamos la informacion en el usuario existente.
-        else:  
+            self.contraseña = ""  # no queremos guardar la contraseña como texto plano.
+        # de lo contrario solo actualizamos la informacion en el usuario existente.
+        else:
             u = self.cuenta
             u.username = self.correo
             u.first_name = self.nombre
-                    
-        #deberiamos cambiar la contraseña? 
-        if(self.contraseña is not None and len(self.contraseña)>5): 
-            u.set_password(self.contraseña)  
+
+        # deberiamos cambiar la contraseña?
+        if (self.contraseña is not None and len(self.contraseña) > 5):
+            u.set_password(self.contraseña)
             self.contraseña = ""
-        
+
         u.save()
         super(Perfil, self).save(*args, **kwargs)
-
 
     def __str__(self):
         return self.nombre
@@ -53,8 +55,8 @@ class Tienda(ModelBase):
     nombre = models.CharField(max_length=45)
     indicativo = models.PositiveIntegerField()
     whatsapp = models.PositiveIntegerField()
-    ubicacion = models.CharField()
-    elementos = models.ManyToManyField(Elemento, blank=True)
+    ubicacion = models.CharField(max_length=45)
+    elementos = models.ManyToManyField('tps.Elemento', blank=True, related_name='+')
 
     def __str__(self):
         return str(self.id)
@@ -76,6 +78,3 @@ class Elemento(ModelBase):
     class Meta:
         verbose_name = 'Elemento'
         verbose_name_plural = 'Elementos'
-
-
-

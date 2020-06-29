@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from . import models
-from apps.utils.serializers import CustomSerializer
+from backend.apps.utils.serializers import CustomSerializer
 from rest_framework import serializers
 
 class PerfilSerializer(CustomSerializer):

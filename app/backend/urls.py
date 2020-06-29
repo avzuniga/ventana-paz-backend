@@ -14,6 +14,6 @@ urlpatterns = [
       url(r'^{}auth/'.format(PREFIX_URL), include('rest_auth.urls')),
       url(r'^{}$'.format(PREFIX_URL), schema_view),
       url(r'^{}api/v1/'.format(PREFIX_URL), include(router.urls)),
-      url(r'^{}api/v1/tps/'.format(PREFIX_URL), include('apps.tps.urls')),
+      url(r'^{}api/v1/tps/'.format(PREFIX_URL), include('backend.apps.tps.urls')),
 ]
 

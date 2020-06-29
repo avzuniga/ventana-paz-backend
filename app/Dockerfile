@@ -1,5 +1,5 @@
 # Se utiliza de base imagen de python con python 2.7
-FROM ubuntu:18.10
+FROM ubuntu:18.04
 ARG DJANGO_ENV
 
 # Agregamos los requerimientos a la imagen
