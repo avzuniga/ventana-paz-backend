@@ -11,7 +11,9 @@ class Perfil(ModelBase):
     edad = models.PositiveIntegerField()
     tienda = models.ForeignKey(
         'tps.Tienda',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
     cuenta = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
 
