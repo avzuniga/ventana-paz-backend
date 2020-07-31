@@ -152,6 +152,18 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 # http://channels.readthedocs.org/en/latest/deploying.html#setting-up-a-channel-backend
 redis_host = os.environ.get('REDIS_HOST', 'redis://redis')
 
+# AWS S3 - Bucket
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_AUTO_CREATE_BUCKET = True
+AWS_S3_FILE_OVERWRITE = False
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', '')
+AWS_DEFAULT_ACL = os.environ.get('AWS_DEFAULT_ACL', '')
+AWS_QUERYSTRING_AUTH = False
+
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'asgi_redis.RedisChannelLayer',
