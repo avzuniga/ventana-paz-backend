@@ -5,17 +5,37 @@ from django.contrib.auth.models import User, Group, Permission
 
 
 class Perfil(ModelBase):
-    contraseña = models.CharField(max_length=15)
-    nombre = models.CharField(max_length=60)
-    correo = models.EmailField()
-    edad = models.PositiveIntegerField()
+    contraseña = models.CharField(
+        max_length=15,
+        blank=True,
+        null=True
+    )
+    nombre = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True
+    )
+    correo = models.EmailField(
+        blank=True,
+        null=True
+    )
+    edad = models.PositiveIntegerField(
+        blank=True,
+        null=True
+    )
     tienda = models.ForeignKey(
         'tps.Tienda',
         on_delete=models.CASCADE,
         blank=True,
         null=True
     )
-    cuenta = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    cuenta = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        editable=False,
+        blank=True,
+        null=True
+    )
 
     def clean(self):
         if self.pk is None and self.contraseña is None:
@@ -54,12 +74,33 @@ class Perfil(ModelBase):
 
 
 class Tienda(ModelBase):
-    nombre = models.CharField(max_length=45)
-    indicativo = models.PositiveIntegerField()
-    whatsapp = models.PositiveIntegerField()
-    ubicacion = models.CharField(max_length=45,blank=True, null=True)
-    elementos = models.ManyToManyField('tps.Elemento', blank=True, related_name='+')
-    descripcion = models.TextField(blank=True, null=True)
+    nombre = models.CharField(
+        max_length=45,
+        blank=True,
+        null=True
+    )
+    indicativo = models.PositiveIntegerField(
+        blank=True,
+        null=True
+    )
+    whatsapp = models.PositiveIntegerField(
+        blank=True,
+        null=True
+    )
+    ubicacion = models.CharField(
+        max_length=45,
+        blank=True,
+        null=True
+    )
+    elementos = models.ManyToManyField(
+        'tps.Elemento',
+        blank=True,
+        related_name='+'
+    )
+    descripcion = models.TextField(
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return str(self.id)
@@ -70,10 +111,25 @@ class Tienda(ModelBase):
 
 
 class Elemento(ModelBase):
-    titulo = models.CharField(max_length=45)
-    descripcion = models.TextField()
-    precio = models.FloatField()
-    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
+    titulo = models.CharField(
+        max_length=45,
+        blank=True,
+        null=True
+    )
+    descripcion = models.TextField(
+        blank=True,
+        null=True
+    )
+    precio = models.FloatField(
+        blank=True,
+        null=True
+    )
+    tienda = models.ForeignKey(
+        Tienda,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return str(self.id)
