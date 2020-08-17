@@ -101,9 +101,15 @@ class Tienda(ModelBase):
         blank=True,
         null=True
     )
+    visitas = models.PositiveIntegerField(
+        default=0
+    )
 
     def __str__(self):
         return str(self.id)
+
+    def get_products(self):
+        return Elemento.objects.filter(tienda_id=self.id)
 
     class Meta:
         verbose_name = 'Tienda'

@@ -16,7 +16,7 @@ class PerfilSerializer(CustomSerializer):
         ]
 
 class TiendaSerializer(CustomSerializer):
-    
+    productos_read = serializers.ReadOnlyField(source='get_products')
     class Meta:
         model = models.Tienda
         exclude = [
@@ -25,6 +25,7 @@ class TiendaSerializer(CustomSerializer):
             'updated',
         ]
         extra_fields = [
+            'productos_read'
         ]
 
 class ElementoSerializer(CustomSerializer):
