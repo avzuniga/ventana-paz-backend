@@ -34,6 +34,7 @@ class TiendaAdmin(admin.ModelAdmin):
         'indicativo',
         'whatsapp',
         'ubicacion',
+        'imagen'
     ]
     search_fields = [
         'nombre',
@@ -47,6 +48,7 @@ class TiendaAdmin(admin.ModelAdmin):
 
 @admin.register(models.Elemento)
 class ElementoAdmin(admin.ModelAdmin):
+    filter_horizontal = ('imagenes', )
     list_display = [
         'id',
         'titulo',

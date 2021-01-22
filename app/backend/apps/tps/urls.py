@@ -5,6 +5,7 @@ from . import viewsets
  
 router = routers.DefaultRouter()
 router.register(r'perfiles', viewsets.PerfilViewSet)
+router.register(r'imagenes', viewsets.ImagenViewSet)
 router.register(r'tiendas', viewsets.TiendaViewSet)
 router.register(r'elementos', viewsets.ElementoViewSet)
 

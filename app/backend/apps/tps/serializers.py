@@ -3,8 +3,8 @@ from . import models
 from backend.apps.utils.serializers import CustomSerializer
 from rest_framework import serializers
 
+
 class PerfilSerializer(CustomSerializer):
-    
     class Meta:
         model = models.Perfil
         exclude = [
@@ -15,8 +15,10 @@ class PerfilSerializer(CustomSerializer):
         extra_fields = [
         ]
 
+
 class TiendaSerializer(CustomSerializer):
     productos_read = serializers.ReadOnlyField(source='get_products')
+
     class Meta:
         model = models.Tienda
         exclude = [
@@ -28,10 +30,22 @@ class TiendaSerializer(CustomSerializer):
             'productos_read'
         ]
 
+
 class ElementoSerializer(CustomSerializer):
-    
     class Meta:
         model = models.Elemento
+        exclude = [
+            'archived',
+            'created',
+            'updated',
+        ]
+        extra_fields = [
+        ]
+
+
+class ImagenSerializer(CustomSerializer):
+    class Meta:
+        model = models.Imagen
         exclude = [
             'archived',
             'created',

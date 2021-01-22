@@ -83,7 +83,8 @@ class Tienda(ModelBase):
         blank=True,
         null=True
     )
-    whatsapp = models.PositiveIntegerField(
+    whatsapp = models.CharField(
+        max_length=15,
         blank=True,
         null=True
     )
@@ -104,6 +105,9 @@ class Tienda(ModelBase):
     visitas = models.PositiveIntegerField(
         default=0
     )
+    imagen = models.FileField(
+        upload_to='images'
+    )
 
     def __str__(self):
         return str(self.id)
@@ -114,6 +118,15 @@ class Tienda(ModelBase):
     class Meta:
         verbose_name = 'Tienda'
         verbose_name_plural = 'Tiendas'
+
+
+class Imagen(ModelBase):
+    imagen = models.FileField(
+        upload_to='images'
+    )
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Elemento(ModelBase):
@@ -130,11 +143,16 @@ class Elemento(ModelBase):
         blank=True,
         null=True
     )
+
     tienda = models.ForeignKey(
         Tienda,
         on_delete=models.CASCADE,
         blank=True,
         null=True
+    )
+    imagenes = models.ManyToManyField(
+        Imagen,
+        blank=True
     )
 
     def __str__(self):

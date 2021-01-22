@@ -67,3 +67,9 @@ class ElementoViewSet(viewsets.ModelViewSet):
     queryset = models.Elemento.objects.all()
     serializer_class = serializers.ElementoSerializer
     model = models.Elemento
+
+
+class ImagenViewSet(viewsets.ModelViewSet):
+    queryset = models.Imagen.objects.all()
+    serializer_class = serializers.ImagenSerializer
+    model = models.Imagen
