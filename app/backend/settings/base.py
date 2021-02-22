@@ -142,6 +142,14 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with'
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+'''
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
+]
+'''
+
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 CELERY_BROKER_URL = 'redis://redis:6379'
