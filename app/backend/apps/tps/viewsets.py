@@ -12,6 +12,15 @@ class PerfilViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PerfilSerializer
     model = models.Perfil
 
+    @action(detail=False, methods=['get'])
+    def get_perfil(self, request):
+        user = request.user
+        perfil = get_object_or_none(models.Perfil, cuenta=user)
+        if perfil:
+            serializer = serializers.PerfilSerializer(perfil)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'status': 'not found'}, status=status.HTTP_404_NOT_FOUND)
+
 
 class TiendaViewSet(viewsets.ModelViewSet):
     queryset = models.Tienda.objects.all()
@@ -52,7 +61,8 @@ class TiendaViewSet(viewsets.ModelViewSet):
         tiendas = []
         data = []
         if words:
-            productos = models.Elemento.objects.filter(titulo__icontains=words).order_by('-tienda__visitas', '-tienda__id')
+            productos = models.Elemento.objects.filter(titulo__icontains=words).order_by('-tienda__visitas',
+                                                                                         '-tienda__id')
             for producto in productos:
                 if producto.tienda in tiendas:
                     continue
