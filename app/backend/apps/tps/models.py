@@ -115,7 +115,7 @@ class Tienda(ModelBase):
         return str(self.id)
 
     def get_products(self):
-        from apps.tps.serializers import ElementoSerializer
+        from backend.apps.tps.serializers import ElementoSerializer
         return ElementoSerializer(Elemento.objects.filter(tienda_id=self.id), many=True).data
 
     class Meta:
