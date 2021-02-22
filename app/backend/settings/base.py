@@ -25,10 +25,10 @@ SECRET_KEY = 'SECRET_KEY'
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ORIGIN_WHITELIST = [
-    'https://localhost:3000',
-    'https://ventanaporlapaz.com'
-]
+#CORS_ORIGIN_WHITELIST = [
+    #'https://localhost:3000',
+    #'https://ventanaporlapaz.com'
+#]
 
 # Application definition
 
@@ -60,15 +60,15 @@ BACKEND_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + BACKEND_APPS
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.security.SecurityMiddleware',
+    #'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # add chorsheaders
-     'corsheaders.middleware.CorsMiddleware',
+     #"'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = '{0}.urls'.format(PROJECT_NAME)
@@ -134,7 +134,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
-
+"""
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -146,8 +146,8 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with'
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
+"""
+#CORS_ORIGIN_ALLOW_ALL = True
 
 '''
 CORS_ORIGIN_WHITELIST = [
