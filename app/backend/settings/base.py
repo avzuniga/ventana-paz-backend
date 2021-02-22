@@ -25,6 +25,11 @@ SECRET_KEY = 'SECRET_KEY'
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_WHITELIST = [
+    'https://localhost:3000',
+    'https://ventanaporlapaz.com'
+]
+
 # Application definition
 
 DJANGO_APPS = [
