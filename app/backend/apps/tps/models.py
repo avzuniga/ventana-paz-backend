@@ -106,7 +106,9 @@ class Tienda(ModelBase):
         default=0
     )
     imagen = models.FileField(
-        upload_to='images'
+        upload_to='images',
+        blank=True,
+        null=True
     )
 
     def __str__(self):
