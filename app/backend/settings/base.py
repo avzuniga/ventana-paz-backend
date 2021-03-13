@@ -25,10 +25,6 @@ SECRET_KEY = 'SECRET_KEY'
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ORIGIN_WHITELIST = [
-    'https://localhost:3000',
-    'https://ventanaporlapaz.com'
-]
 
 # Application definition
 
@@ -68,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # add chorsheaders
-     'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = '{0}.urls'.format(PROJECT_NAME)
@@ -135,17 +131,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with'
-]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
