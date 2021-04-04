@@ -3,6 +3,8 @@ from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User, Group, Permission
 
+from app.backend.apps.tps.serializers import TiendaSerializer
+
 
 class Perfil(ModelBase):
     contraseña = models.CharField(
@@ -160,6 +162,10 @@ class Elemento(ModelBase):
 
     def __str__(self):
         return str(self.id)
+
+    def get_tienda(self):
+        tienda = TiendaSerializer(self.tienda).data
+        return tienda
 
     class Meta:
         verbose_name = 'Elemento'

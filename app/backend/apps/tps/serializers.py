@@ -32,7 +32,7 @@ class TiendaSerializer(CustomSerializer):
 
 
 class ElementoSerializer(CustomSerializer):
-    tienda_read = TiendaSerializer(read_only=True)
+    tienda_read = serializers.ReadOnlyField(source='get_tienda')
 
     class Meta:
         model = models.Elemento
