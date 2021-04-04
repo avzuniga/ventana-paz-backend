@@ -32,6 +32,8 @@ class TiendaSerializer(CustomSerializer):
 
 
 class ElementoSerializer(CustomSerializer):
+    tienda_read = TiendaSerializer(read_only=True)
+
     class Meta:
         model = models.Elemento
         exclude = [
@@ -40,6 +42,7 @@ class ElementoSerializer(CustomSerializer):
             'updated',
         ]
         extra_fields = [
+            'tienda_read'
         ]
 
 
