@@ -163,7 +163,7 @@ class Elemento(ModelBase):
 
     def get_tienda(self):
         from backend.apps.tps.serializers import TiendaSerializer
-        tienda = TiendaSerializer(self.tienda).data
+        tienda = TiendaSerializer(Tienda.objects.filter(id=self.tienda.id).first()).data
         return tienda
 
     class Meta:
