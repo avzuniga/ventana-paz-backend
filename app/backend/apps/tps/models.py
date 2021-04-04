@@ -162,8 +162,15 @@ class Elemento(ModelBase):
         return str(self.id)
 
     def get_tienda(self):
-        from backend.apps.tps.serializers import TiendaSerializer
-        tienda = TiendaSerializer(Tienda.objects.filter(id=self.tienda.id).first()).data
+        tienda_obj = Tienda.objects.filter(id=self.tienda.id).first()
+        tienda = {
+            'nombre': tienda_obj.nombre,
+            'indicativo': tienda_obj.indicativo,
+            'whatsapp': tienda_obj.whatsapp,
+            'ubicacion': tienda_obj.ubicacion,
+            'descripcion': tienda_obj.descripcion,
+            'imagen': tienda_obj.imagen
+        }
         return tienda
 
     class Meta:
