@@ -172,6 +172,8 @@ class Elemento(ModelBase):
         }
         if tienda_obj.imagen:
             tienda['imagen'] = tienda_obj.imagen
+        else:
+            tienda['imagen'] = None
         return tienda
 
     class Meta:
