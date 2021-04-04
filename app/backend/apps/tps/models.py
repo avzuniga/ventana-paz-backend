@@ -169,8 +169,9 @@ class Elemento(ModelBase):
             'whatsapp': tienda_obj.whatsapp,
             'ubicacion': tienda_obj.ubicacion,
             'descripcion': tienda_obj.descripcion,
-            'imagen': tienda_obj.imagen
         }
+        if tienda_obj.imagen:
+            tienda['imagen'] = tienda_obj.imagen
         return tienda
 
     class Meta:
