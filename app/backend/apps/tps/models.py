@@ -3,7 +3,7 @@ from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User, Group, Permission
 
-from app.backend.apps.tps.serializers import TiendaSerializer
+from backend.apps.tps.serializers import TiendaSerializer
 
 
 class Perfil(ModelBase):
