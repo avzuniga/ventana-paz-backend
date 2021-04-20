@@ -177,7 +177,7 @@ class Elemento(ModelBase):
             'descripcion': tienda_obj.descripcion,
         }
         if tienda_obj.imagen:
-            tienda['imagen'] = tienda_obj.imagen
+            tienda['imagen'] = tienda_obj.imagen.imagen
         else:
             tienda['imagen'] = None
         return tienda
