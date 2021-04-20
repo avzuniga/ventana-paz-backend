@@ -165,6 +165,7 @@ class Elemento(ModelBase):
     def get_imagenes(self):
         from backend.apps.tps.serializers import ImagenSerializer
         data = ImagenSerializer(self.imagenes, many=True).data
+        return data
 
     def get_tienda(self):
         tienda_obj = Tienda.objects.filter(id=self.tienda.id).first()
