@@ -161,6 +161,21 @@ class Elemento(ModelBase):
     def __str__(self):
         return str(self.id)
 
+    def get_tienda(self):
+        tienda_obj = Tienda.objects.filter(id=self.tienda.id).first()
+        tienda = {
+            'nombre': tienda_obj.nombre,
+            'indicativo': tienda_obj.indicativo,
+            'whatsapp': tienda_obj.whatsapp,
+            'ubicacion': tienda_obj.ubicacion,
+            'descripcion': tienda_obj.descripcion,
+        }
+        if tienda_obj.imagen:
+            tienda['imagen'] = tienda_obj.imagen
+        else:
+            tienda['imagen'] = None
+        return tienda
+
     class Meta:
         verbose_name = 'Elemento'
         verbose_name_plural = 'Elementos'

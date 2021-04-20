@@ -26,11 +26,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'localhost'
-)
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
