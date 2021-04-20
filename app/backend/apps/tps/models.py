@@ -94,11 +94,6 @@ class Tienda(ModelBase):
         blank=True,
         null=True
     )
-    elementos = models.ManyToManyField(
-        'tps.Elemento',
-        blank=True,
-        related_name='+'
-    )
     descripcion = models.TextField(
         blank=True,
         null=True
@@ -176,8 +171,8 @@ class Elemento(ModelBase):
             'ubicacion': tienda_obj.ubicacion,
             'descripcion': tienda_obj.descripcion,
         }
-        if tienda_obj.imagen:
-            tienda['imagen'] = tienda_obj.imagen.imagen
+        if tienda_obj.imagen is not None:
+            tienda['imagen'] = tienda_obj.imagen
         else:
             tienda['imagen'] = None
         return tienda

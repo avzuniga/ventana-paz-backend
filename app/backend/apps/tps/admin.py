@@ -27,7 +27,6 @@ class PerfilAdmin(admin.ModelAdmin):
 
 @admin.register(models.Tienda)
 class TiendaAdmin(admin.ModelAdmin):
-    filter_horizontal = ('elementos', )
     list_display = [
         'id',
         'nombre',
