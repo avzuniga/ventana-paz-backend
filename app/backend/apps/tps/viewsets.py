@@ -72,6 +72,18 @@ class TiendaViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         return Response([], status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=['get'])
+    def filter_by_product_just(self, request):
+        words = request.query_params.get('words', None)
+        data = []
+        if words:
+            productos = models.Elemento.objects.filter(titulo__icontains=words).order_by('-tienda__visitas',
+                                                                                         '-tienda__id')
+            for producto in productos:
+                data.append(serializers.ElementoSerializer(producto).data)
+            return Response(data, status=status.HTTP_200_OK)
+        return Response([], status=status.HTTP_200_OK)
+
 
 class ElementoViewSet(viewsets.ModelViewSet):
     queryset = models.Elemento.objects.all()
