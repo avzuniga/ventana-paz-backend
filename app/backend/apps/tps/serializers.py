@@ -33,6 +33,7 @@ class TiendaSerializer(CustomSerializer):
 
 class ElementoSerializer(CustomSerializer):
     tienda_read = serializers.ReadOnlyField(source='get_tienda')
+    imagenes_read = serializers.ReadOnlyField(source='get_imagenes')
 
     class Meta:
         model = models.Elemento
@@ -42,7 +43,8 @@ class ElementoSerializer(CustomSerializer):
             'updated',
         ]
         extra_fields = [
-            'tienda_read'
+            'tienda_read',
+            'imagenes_read'
         ]
 
 

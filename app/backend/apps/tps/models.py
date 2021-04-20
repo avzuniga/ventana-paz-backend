@@ -1,4 +1,6 @@
 from django.db import models
+
+from apps.tps.serializers import ImagenSerializer
 from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User, Group, Permission
@@ -160,6 +162,9 @@ class Elemento(ModelBase):
 
     def __str__(self):
         return str(self.id)
+
+    def get_imagenes(self):
+        data = ImagenSerializer(self.imagenes, many=True).data
 
     def get_tienda(self):
         tienda_obj = Tienda.objects.filter(id=self.tienda.id).first()
