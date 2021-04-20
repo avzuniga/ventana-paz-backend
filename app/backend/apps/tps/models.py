@@ -158,8 +158,11 @@ class Elemento(ModelBase):
         return str(self.id)
 
     def get_imagenes(self):
-        from backend.apps.tps.serializers import ImagenSerializer
-        data = ImagenSerializer(self.imagenes, many=True).data
+        data = []
+        for image in self.imagenes.all():
+            data.append(
+                image.url
+            )
         return data
 
     def get_tienda(self):
