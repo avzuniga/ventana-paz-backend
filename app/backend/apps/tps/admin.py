@@ -65,3 +65,17 @@ class ElementoAdmin(admin.ModelAdmin):
         'tienda',
         'precio'
     ]
+
+
+@admin.register(models.Imagen)
+class ImagenAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'imagen',
+    ]
+    search_fields = [
+        'id'
+    ]
+
+    list_filter = [
+    ]
