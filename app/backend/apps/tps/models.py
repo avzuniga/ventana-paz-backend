@@ -1,6 +1,5 @@
 from django.db import models
 
-from backend.apps.tps.serializers import ImagenSerializer
 from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User, Group, Permission
@@ -164,6 +163,7 @@ class Elemento(ModelBase):
         return str(self.id)
 
     def get_imagenes(self):
+        from backend.apps.tps.serializers import ImagenSerializer
         data = ImagenSerializer(self.imagenes, many=True).data
 
     def get_tienda(self):
