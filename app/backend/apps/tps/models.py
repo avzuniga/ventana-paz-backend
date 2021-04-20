@@ -161,7 +161,7 @@ class Elemento(ModelBase):
         data = []
         for image in self.imagenes.all():
             data.append(
-                image.url
+                image.imagen.url
             )
         return data
 
