@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.tps.serializers import ImagenSerializer
+from backend.apps.tps.serializers import ImagenSerializer
 from backend.apps.utils.models import ModelBase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User, Group, Permission
