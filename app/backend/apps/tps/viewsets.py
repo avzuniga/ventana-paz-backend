@@ -52,7 +52,8 @@ class TiendaViewSet(viewsets.ModelViewSet):
     def filter_tienda(self, request):
         words = request.query_params.get('words', None)
         if words:
-            tiendas = models.Tienda.objects.filter(nombre__icontains=words).order_by('-visitas', '-id')
+            tiendas = models.Tienda.objects.filter(nombre__icontains=words,
+                                                   archived=False).order_by('-visitas', '-id')
             serializer = serializers.TiendaSerializer(tiendas, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response([], status=status.HTTP_200_OK)
@@ -63,7 +64,8 @@ class TiendaViewSet(viewsets.ModelViewSet):
         tiendas = []
         data = []
         if words:
-            productos = models.Elemento.objects.filter(titulo__icontains=words).order_by('-tienda__visitas',
+            productos = models.Elemento.objects.filter(titulo__icontains=words,
+                                                       archived=False).order_by('-tienda__visitas',
                                                                                          '-tienda__id')
             for producto in productos:
                 if producto.tienda in tiendas:
@@ -79,8 +81,9 @@ class TiendaViewSet(viewsets.ModelViewSet):
         words = request.query_params.get('words', None)
         data = []
         if words:
-            productos = models.Elemento.objects.filter(titulo__icontains=words).order_by('-tienda__visitas',
-                                                                                         '-tienda__id')
+            productos = models.Elemento.objects.filter(titulo__icontains=words,
+                                                       archived=False).order_by('-tienda__visitas',
+                                                                                '-tienda__id')
             for producto in productos:
                 data.append(serializers.ElementoSerializer(producto).data)
             return Response(data, status=status.HTTP_200_OK)
