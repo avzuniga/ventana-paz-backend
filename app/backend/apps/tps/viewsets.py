@@ -48,7 +48,7 @@ class TiendaViewSet(viewsets.ModelViewSet):
             return Response({'status': 'success'}, status=status.HTTP_200_OK)
         return Response({'status': 'not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], permission_classes=[AllowAny])
     def filter_tienda(self, request):
         words = request.query_params.get('words', None)
         if words:
@@ -57,7 +57,7 @@ class TiendaViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response([], status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], permission_classes=[AllowAny])
     def filter_by_product(self, request):
         words = request.query_params.get('words', None)
         tiendas = []
@@ -74,7 +74,7 @@ class TiendaViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         return Response([], status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], permission_classes=[AllowAny])
     def filter_by_product_just(self, request):
         words = request.query_params.get('words', None)
         data = []
