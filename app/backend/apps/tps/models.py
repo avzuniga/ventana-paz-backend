@@ -175,8 +175,10 @@ class Elemento(ModelBase):
             'ubicacion': tienda_obj.ubicacion,
             'descripcion': tienda_obj.descripcion,
         }
-        if tienda_obj.imagen is not None:
-            tienda['imagen'] = tienda_obj.imagen.url
+        if tienda_obj:
+            if tienda_obj.imagen:
+                if tienda_obj.imagen.url:
+                    tienda['imagen'] = tienda_obj.imagen.url
         else:
             tienda['imagen'] = None
         return tienda
